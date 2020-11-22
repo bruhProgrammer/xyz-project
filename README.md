@@ -1,4 +1,6 @@
 (function() {
+    console.log("Hello there")
+
     function pc(a) {
         this.QQOO = 2147483648;
         this[b[129]] = 1103515245;
