@@ -1,3 +1,76 @@
+
+window._quad = 0;
+window._width = 2;
+
+
+
+class Controller{
+  constructor(){
+      this.downkeys = {};
+      document.addEventListener("keydown", (e)=>{
+        this.downkeys[e.code] = true;
+        if(e.code === "KeyF"){
+            hack.enabled = true;
+        }
+      })
+
+      document.addEventListener("keyup", (e)=>{
+        delete this.downkeys[e.code];
+        if(e.code === "KeyF"){
+            hack.enabled = false;
+        }
+      })
+  }
+}
+
+const oldrequestframe = window
+function wrap(){
+    
+}
+
+const hack = {
+    enabled: false,
+    camera: {x: 0, y: 0}
+}
+const controller = new Controller();
+
+
+const oldAnim = window.requestAnimationFrame;
+let lastFrame = performance.now();
+function lapaFuckerBigDick(){
+  const now = performance.now();
+  const delta = (now-lastFrame)/1000;
+  lastFrame = now;
+
+  if(controller.downkeys["KeyI"]) hack.camera.y += 300 * delta;
+  if(controller.downkeys["KeyL"]) hack.camera.x -= 300 * delta;
+  if(controller.downkeys["KeyK"]) hack.camera.y -= 300 * delta;
+  if(controller.downkeys["KeyJ"]) hack.camera.x += 300 * delta;
+
+  return oldAnim.apply(this,arguments)
+}
+
+let lastSend = +new Date();
+window.requestAnimationFrame = lapaFuckerBigDick;
+function fuckMeLapa(obj){
+    return new Proxy(obj, {
+      set(obj, prop, value) {
+        if(prop === "x" || prop === "y"){
+            if(hack.enabled) {
+             
+                if(prop === "x") obj[prop] = hack.camera.x;
+                if(prop === "y") obj[prop] = hack.camera.y;
+                return;
+            }else{
+                if(prop === "x") hack.camera.x = value;
+                if(prop === "y") hack.camera.y = value;
+            }
+        }
+        obj[prop] = value;
+      }
+    });
+}
+
 (function() {
     function pc(a) {
         this.QQOO = 2147483648;
